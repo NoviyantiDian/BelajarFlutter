@@ -1,46 +1,56 @@
+import 'package:aplikasi2/model/feed.dart';
 import 'package:flutter/material.dart';
 
 class FeedCard extends StatelessWidget {
+  final Feed feed;
+  
   const FeedCard({
-    super.key,
+    super.key, 
+    required this.feed,
   });
 
   @override
   Widget build(BuildContext context) {
-    const url =
-    'https://images.pexels.com/photos/28888373/pexels-photo-28888373/free-photo-of-seagulls-flying-over-istanbul-waterfront.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
+    final user = feed.user;   
     return Card(
       child: Column(
         children: [
           //header
-          const ListTile(
+          ListTile(
             leading: CircleAvatar(
-              backgroundImage: NetworkImage(url),
+              backgroundImage: NetworkImage(feed.user.avatar),
             ),
-            title: Text('Marry Jane'),
-            subtitle: Text('Status'),
-            trailing: Icon(Icons.arrow_right),
+            title: Text(feed.user.name),
+            subtitle: Text(feed.user.place),
+            trailing: Icon(Icons.more_vert),
           ),
-          Image.network('https://images.pexels.com/photos/27893233/pexels-photo-27893233/free-photo-of-woman-in-shirt-photographing-with-digital-camera.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+          Image.network(
+            feed.content.image,
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.width * 0.8,
           fit: BoxFit.cover,
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
             child: Row(
-              children: const [
+              children: [
                 Icon(Icons.favorite_border),
                 SizedBox(
                   width: 10,
-                )
+                ),
                 Icon(Icons.chat_bubble),
                 SizedBox(
                   width: 10,
                 ),
-                Icon(Icons.send_outlined)
-              ],
-            ),
+                Icon(Icons.send_outlined),
+              Spacer(flex :1),
+              Padding(padding: const EdgeInsets.only(right:8.0)),
+              Icon(Icons.bookmark)
+              ]),
+          ),
+          ListTile(
+            title: Text(feed.content.likes),
+            subtitle: Text(feed.content.description),
           )
         ],
       ),
