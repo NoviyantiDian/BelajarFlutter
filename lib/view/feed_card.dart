@@ -1,57 +1,91 @@
 import 'package:aplikasi2/model/feed.dart';
 import 'package:flutter/material.dart';
 
-class FeedCard extends StatelessWidget {
+class FeedCard extends StatefulWidget {
   final Feed feed;
-  
+
   const FeedCard({
-    super.key, 
+    super.key,
     required this.feed,
   });
 
   @override
+  _FeedCardState createState() => _FeedCardState();
+}
+
+class _FeedCardState extends State<FeedCard> {
+  bool isLiked = false; // State variable to track if the post is liked
+  bool isBookmarked =
+      false; // State variable to track if the post is bookmarked
+
+  void toggleLike() {
+    setState(() {
+      isLiked = !isLiked;
+    });
+  }
+
+  void toggleBookmark() {
+    setState(() {
+      isBookmarked = !isBookmarked;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final user = feed.user;   
+    final user = widget.feed.user;
     return Card(
       child: Column(
         children: [
-          //header
+          // Header
           ListTile(
             leading: CircleAvatar(
-              backgroundImage: NetworkImage(feed.user.avatar),
+              backgroundImage: NetworkImage(user.avatar),
             ),
-            title: Text(feed.user.name),
-            subtitle: Text(feed.user.place),
+            title: Text(user.name),
+            subtitle: Text(user.place),
             trailing: Icon(Icons.more_vert),
           ),
+          // Image
           Image.network(
-            feed.content.image,
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.width * 0.8,
-          fit: BoxFit.cover,
+            widget.feed.content.image,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.width * 0.8,
+            fit: BoxFit.cover,
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+          // Like, comment, share, and bookmark icons
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
             child: Row(
               children: [
-                Icon(Icons.favorite_border),
-                SizedBox(
-                  width: 10,
+                GestureDetector(
+                  onTap: toggleLike,
+                  child: Icon(
+                    isLiked ? Icons.favorite : Icons.favorite_border,
+                    color: isLiked ? Colors.red : Colors.black,
+                  ),
                 ),
-                Icon(Icons.chat_bubble),
-                SizedBox(
-                  width: 10,
+                const SizedBox(width: 10),
+                const Icon(Icons.chat_bubble),
+                const SizedBox(width: 10),
+                const Icon(Icons.send_outlined),
+                const Spacer(),
+                GestureDetector(
+                  onTap: toggleBookmark,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: Icon(
+                      isBookmarked ? Icons.bookmark : Icons.bookmark_border,
+                    ),
+                  ),
                 ),
-                Icon(Icons.send_outlined),
-              Spacer(flex :1),
-              Padding(padding: const EdgeInsets.only(right:8.0)),
-              Icon(Icons.bookmark)
-              ]),
+              ],
+            ),
           ),
+          // Likes and description
           ListTile(
-            title: Text(feed.content.likes),
-            subtitle: Text(feed.content.description),
-          )
+            title: Text('${widget.feed.content.likes}'),
+            subtitle: Text(widget.feed.content.description),
+          ),
         ],
       ),
     );
