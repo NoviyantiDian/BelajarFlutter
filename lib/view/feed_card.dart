@@ -1,5 +1,7 @@
+import 'package:aplikasi2/controller/feed_controller.dart';
 import 'package:aplikasi2/model/feed.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FeedCard extends StatefulWidget {
   final Feed feed;
@@ -14,21 +16,6 @@ class FeedCard extends StatefulWidget {
 }
 
 class _FeedCardState extends State<FeedCard> {
-  bool isLiked = false; // State variable to track if the post is liked
-  bool isBookmarked =
-      false; // State variable to track if the post is bookmarked
-
-  void toggleLike() {
-    setState(() {
-      isLiked = !isLiked;
-    });
-  }
-
-  void toggleBookmark() {
-    setState(() {
-      isBookmarked = !isBookmarked;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,16 +39,18 @@ class _FeedCardState extends State<FeedCard> {
             height: MediaQuery.of(context).size.width * 0.8,
             fit: BoxFit.cover,
           ),
-          // Like, comment, share, and bookmark icons
+
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
             child: Row(
               children: [
                 GestureDetector(
-                  onTap: toggleLike,
+                  onTap : (){
+                    context.read<FeedController>().like(widget.feed);
+                  },                                                                                                                          
                   child: Icon(
-                    isLiked ? Icons.favorite : Icons.favorite_border,
-                    color: isLiked ? Colors.red : Colors.black,
+                    widget.feed.content.isLike ? Icons.favorite : Icons.favorite_border,
+                    color: widget.feed.content.isLike ? Colors.red : Colors.black,
                   ),
                 ),
                 const SizedBox(width: 10),
@@ -70,18 +59,20 @@ class _FeedCardState extends State<FeedCard> {
                 const Icon(Icons.send_outlined),
                 const Spacer(),
                 GestureDetector(
-                  onTap: toggleBookmark,
+                  onTap: (){
+                    context.read<FeedController>().bookmark(widget.feed);
+                  },
                   child: Padding(
                     padding: const EdgeInsets.only(right: 8.0),
                     child: Icon(
-                      isBookmarked ? Icons.bookmark : Icons.bookmark_border,
+                      widget.feed.content.bookmark ? Icons.bookmark : Icons.bookmark_border,
                     ),
                   ),
                 ),
               ],
             ),
           ),
-          // Likes and description
+          
           ListTile(
             title: Text('${widget.feed.content.likes}'),
             subtitle: Text(widget.feed.content.description),
