@@ -22,8 +22,9 @@ class FeedController extends ChangeNotifier {
       ).content.bookmark = !feed.content.bookmark ;
       notifyListeners();
   }
+    List <Feed> get bookmarkedFeeds => feeds.where((feed)=>feed.content.bookmark).toList();
 
-  refresh(){
+    refresh(){
     feeds = FeedRepository().fetch();
     notifyListeners();
   }
