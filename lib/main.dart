@@ -16,17 +16,15 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => FeedController()),
       ],
       child: MaterialApp(
-        
         debugShowCheckedModeBanner: false,
         title: 'Apps',
         theme: ThemeData(
-      
-          colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 120, 201, 255)),
+          colorScheme: ColorScheme.fromSeed(
+              seedColor: const Color.fromARGB(255, 120, 201, 255)),
           useMaterial3: true,
         ),
-        home:const HomePage(),
+        home: const HomePage(),
       ),
     );
   }
 }
-

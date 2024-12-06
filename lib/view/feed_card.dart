@@ -16,7 +16,6 @@ class FeedCard extends StatefulWidget {
 }
 
 class _FeedCardState extends State<FeedCard> {
-
   @override
   Widget build(BuildContext context) {
     final user = widget.feed.user;
@@ -45,12 +44,15 @@ class _FeedCardState extends State<FeedCard> {
             child: Row(
               children: [
                 GestureDetector(
-                  onTap : (){
+                  onTap: () {
                     context.read<FeedController>().like(widget.feed);
-                  },                                                                                                                          
+                  },
                   child: Icon(
-                    widget.feed.content.isLike ? Icons.favorite : Icons.favorite_border,
-                    color: widget.feed.content.isLike ? Colors.red : Colors.black,
+                    widget.feed.content.isLike
+                        ? Icons.favorite
+                        : Icons.favorite_border,
+                    color:
+                        widget.feed.content.isLike ? Colors.red : Colors.black,
                   ),
                 ),
                 const SizedBox(width: 10),
@@ -59,20 +61,22 @@ class _FeedCardState extends State<FeedCard> {
                 const Icon(Icons.send_outlined),
                 const Spacer(),
                 GestureDetector(
-                  onTap: (){
+                  onTap: () {
                     context.read<FeedController>().bookmark(widget.feed);
                   },
                   child: Padding(
                     padding: const EdgeInsets.only(right: 8.0),
                     child: Icon(
-                      widget.feed.content.bookmark ? Icons.bookmark : Icons.bookmark_border,
+                      widget.feed.content.bookmark
+                          ? Icons.bookmark
+                          : Icons.bookmark_border,
                     ),
                   ),
                 ),
               ],
             ),
           ),
-          
+
           ListTile(
             title: Text('${widget.feed.content.likes}'),
             subtitle: Text(widget.feed.content.description),
