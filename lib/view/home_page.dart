@@ -1,6 +1,6 @@
 import 'package:aplikasi2/controller/feed_controller.dart';
 import 'package:aplikasi2/view/feedbookmark_page.dart';
-import 'package:aplikasi2/view/profile_page.dart'; // Tambahkan import untuk halaman Profile
+import 'package:aplikasi2/view/profile_page.dart'; 
 import 'package:flutter/material.dart';
 import 'package:aplikasi2/view/feed_card.dart';
 import 'package:provider/provider.dart';
@@ -13,13 +13,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _currentIndex = 0; // Indeks halaman saat ini
+  int _currentIndex = 0; 
 
-  // Daftar halaman
+  
   final List<Widget> _pages = [
-    const HomePageContent(), // Konten halaman Home
-    const FeedbookmarkPage(), // Halaman Bookmark
-    ProfilePage(), // Halaman Profile
+    const HomePageContent(), 
+    const FeedbookmarkPage(), 
+    ProfilePage(), 
   ];
 
   @override
@@ -31,12 +31,15 @@ class _HomePageState extends State<HomePage> {
           style: TextStyle(fontWeight: FontWeight.w400),
         ),
       ),
-      body: _pages[_currentIndex], // Tampilkan halaman berdasarkan indeks
+      body: _pages[_currentIndex], 
+      
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex, // Indeks aktif
+        currentIndex: _currentIndex, 
+        
         onTap: (index) {
           setState(() {
-            _currentIndex = index; // Ubah indeks saat tombol ditekan
+            _currentIndex = index; 
+            
           });
         },
         items: const [
@@ -58,7 +61,7 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-// Konten untuk halaman Home
+
 class HomePageContent extends StatelessWidget {
   const HomePageContent({super.key});
 
