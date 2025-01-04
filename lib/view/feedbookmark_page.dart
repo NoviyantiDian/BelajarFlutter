@@ -3,33 +3,33 @@ import 'package:flutter/material.dart';
 import 'package:aplikasi2/view/feed_card.dart';
 import 'package:provider/provider.dart';
 
-class FeedbookmarkPage extends StatefulWidget {
-  const FeedbookmarkPage({super.key});
+class FeedBookmarkPage extends StatefulWidget {
+  const FeedBookmarkPage({super.key});
 
   @override
-  State<FeedbookmarkPage> createState() => _HomePageState();
+  State<FeedBookmarkPage> createState() => _FeedBookmarkPageState();
 }
 
-class _HomePageState extends State<FeedbookmarkPage> {
+class _FeedBookmarkPageState extends State<FeedBookmarkPage> {
   @override
   Widget build(BuildContext context) {
     final controller = context.watch<FeedController>();
     return Scaffold(
-      appBar: AppBar(title: const Text('Instagram',
-      style: TextStyle(fontWeight: FontWeight.w400),
-      ),),
-        body: RefreshIndicator(
-        onRefresh: ()async{
-          await Future.delayed(const Duration(seconds : 1));
-          controller.refresh();
-        },
-        child: ListView.builder(
-          itemCount: controller.bookmarkedFeeds.length,
-          itemBuilder: (context, index) => FeedCard
-          (feed: controller.bookmarkedFeeds[index],
+      appBar: AppBar(
+        title: const Text(
+          'Bookmark List',
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+          ),
         ),
-            ),
-      ));
+      ),
+      body: ListView.builder(
+        itemCount: controller.bookmarkFeeds.length,
+        itemBuilder: (context, index) => FeedCard(
+          feed: controller.bookmarkFeeds[index],
+        ),
+      ),
+    );
   }
 }
 

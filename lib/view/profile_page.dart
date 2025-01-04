@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'feedbookmark_page.dart'; 
 class ProfilePage extends StatelessWidget {
+  const ProfilePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -10,7 +12,7 @@ class ProfilePage extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.notifications),
-            onPressed: () {}, // Tambahkan logika notifikasi
+            onPressed: () {}, 
           ),
         ],
       ),
@@ -35,7 +37,7 @@ class ProfilePage extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.star),
             title: const Text('My Membership'),
-            onTap: () {}, // Tambahkan logika
+            onTap: () {}, 
           ),
           ListTile(
             leading: const Icon(Icons.bookmark),
@@ -44,7 +46,7 @@ class ProfilePage extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const FeedbookmarkPage()),
+                    builder: (context) => const FeedBookmarkPage()),
               );
             },
           ),
@@ -55,7 +57,7 @@ class ProfilePage extends StatelessWidget {
               style: TextStyle(color: Colors.red),
             ),
             onTap: () {
-              // Tambahkan logika logout
+             
             },
           ),
         ],
